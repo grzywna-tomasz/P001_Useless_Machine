@@ -50,3 +50,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+P001_Useless_Machine/Debug/P001_Useless_Machine.eep
+P001_Useless_Machine/Debug/P001_Useless_Machine.lss
+P001_Useless_Machine/Debug/P001_Useless_Machine.srec

@@ -20,7 +20,7 @@
 
 #define F_CLOCK				16000000UL
 #define F_DIVIDER			F_DIVIDER_1
-#define F_CPU				(F_CLOCK/(F_DIVIDER + 1))
+#define F_CPU				(unsigned long)(F_CLOCK/(F_DIVIDER + 1))
 #include <util/delay.h>
 
 void Mcu_ClockInit(void);

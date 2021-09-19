@@ -10,6 +10,7 @@
 #define STANDARD_TYPES_H_
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 #define TRUE			(uint8_t)(1)
 #define FALSE			(uint8_t)(0)

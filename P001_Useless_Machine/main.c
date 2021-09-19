@@ -11,21 +11,22 @@
 #include "IO.h"
 #include "mcu.h"
 #include "debug.h"
-
-#define TEST_LED_INDEX	(uint8_t)(5)
+#include "timer.h"
 
 int main (void)
 {
 	Mcu_ClockInit();
-	Debug_Init();
+	//Debug_Init();
+	Timer1_Init();
+	Timer1_SetTime();
+
 	DDRB = 0b11111111;
+		
+	sei();
 	
 	while(TRUE)
 	{		
-		IO_SetPin(PORTB, TEST_LED_INDEX, TRUE);
-		_delay_ms(1000);
-		IO_SetPin(PORTB, TEST_LED_INDEX, FALSE);
-		_delay_ms(1000);
+		/* Do nothing */
 	}
 }
 

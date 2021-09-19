@@ -9,9 +9,11 @@
 #ifndef IO_H_
 #define IO_H_
 
+#define TEST_LED_INDEX	(uint8_t)(5)
+
 /* Macro used for setting pin value */
 #define IO_SetPin(port, pin, state)			\
-	if (FALSE == state)						\
+	if (FALSE == (0x01 & state))			\
 	{										\
 		(port) &= ~(1 << (pin));			\
 	}										\
@@ -22,7 +24,7 @@
 /* IO_SetPin */
 
 /* Macro used for getting pin value */
-#define IO_GetPin(port, pin)				((port) >> (pin))
+#define IO_GetPin(port, pin)				(((port) >> (pin)) & 0x01)
 /* IO_GetPin */
 
 /* Macro used for setting port value */

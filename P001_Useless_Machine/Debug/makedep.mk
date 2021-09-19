@@ -8,5 +8,7 @@ main.c
 
 mcu.c
 
+os.c
+
 timer.c
 

@@ -12,12 +12,21 @@
 #include "mcu.h"
 #include "debug.h"
 #include "timer.h"
+#include "os.h"
+
+void LedToggle(void)
+{
+	IO_SetPin(PORTB, TEST_LED_INDEX, ~IO_GetPin(PORTB, TEST_LED_INDEX));
+}
 
 int main (void)
 {
 	Mcu_ClockInit();
 	//Debug_Init();
+	OS_Init();
 	Timer1_Init();
+	
+	OS_Activate_Task(OS_TASK_LED_TOGGLE);
 	Timer1_SetTime();
 
 	DDRB = 0b11111111;
@@ -26,7 +35,7 @@ int main (void)
 	
 	while(TRUE)
 	{		
-		/* Do nothing */
+		OS_Run();
 	}
 }
 

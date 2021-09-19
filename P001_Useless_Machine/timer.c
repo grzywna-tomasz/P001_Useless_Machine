@@ -8,6 +8,7 @@
 #include "standard_types.h"
 #include "mcu.h"
 #include "timer.h"
+#include "os.h"
 
 #include "IO.h"
 
@@ -31,6 +32,6 @@ void Timer1_SetTime(void)
 
 ISR(TIMER1_OVF_vect)
 {
-	IO_SetPin(PORTB, TEST_LED_INDEX, ~IO_GetPin(PORTB, TEST_LED_INDEX));
+	OS_Tick_Handler();
 	Timer1_SetTime();
 }

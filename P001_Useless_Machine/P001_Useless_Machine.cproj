@@ -164,6 +164,12 @@
     <Compile Include="mcu.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="os.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="os.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="standard_types.h">
       <SubType>compile</SubType>
     </Compile>

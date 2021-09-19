@@ -11,6 +11,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/cpufunc.h>
 
 #define TRUE			(uint8_t)(1)
 #define FALSE			(uint8_t)(0)

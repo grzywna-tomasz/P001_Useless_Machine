@@ -44,6 +44,7 @@ C_SRCS +=  \
 ../2_services/main.c \
 ../2_services/os.c \
 ../3_hal/led.c \
+../3_hal/uln2003.c \
 ../4_mcu_drivers/mcu.c \
 ../4_mcu_drivers/timer.c \
 ../debug.c
@@ -59,6 +60,7 @@ OBJS +=  \
 2_services/main.o \
 2_services/os.o \
 3_hal/led.o \
+3_hal/uln2003.o \
 4_mcu_drivers/mcu.o \
 4_mcu_drivers/timer.o \
 debug.o
@@ -67,6 +69,7 @@ OBJS_AS_ARGS +=  \
 2_services/main.o \
 2_services/os.o \
 3_hal/led.o \
+3_hal/uln2003.o \
 4_mcu_drivers/mcu.o \
 4_mcu_drivers/timer.o \
 debug.o
@@ -75,6 +78,7 @@ C_DEPS +=  \
 2_services/main.d \
 2_services/os.d \
 3_hal/led.d \
+3_hal/uln2003.d \
 4_mcu_drivers/mcu.d \
 4_mcu_drivers/timer.d \
 debug.d
@@ -83,6 +87,7 @@ C_DEPS_AS_ARGS +=  \
 2_services/main.d \
 2_services/os.d \
 3_hal/led.d \
+3_hal/uln2003.d \
 4_mcu_drivers/mcu.d \
 4_mcu_drivers/timer.d \
 debug.d
@@ -116,6 +121,13 @@ LINKER_SCRIPT_DEP+=
 	
 
 3_hal/led.o: ../3_hal/led.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include" -I"../1_app" -I"../2_services" -I"../3_hal" -I"../4_mcu_drivers" -I".."  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+3_hal/uln2003.o: ../3_hal/uln2003.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include" -I"../1_app" -I"../2_services" -I"../3_hal" -I"../4_mcu_drivers" -I".."  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

@@ -29,7 +29,7 @@
 
 /* Macro used for setting port value */
 #define IO_SetPort(port, value)				\
-	(port) &= (value);						\
+	(port) = (value);						\
 /* IO_SetPort */
 
 /* Macro used for getting port value */

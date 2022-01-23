@@ -18,7 +18,7 @@
 #define TIMER1_100MS			(uint16_t)(UINT16_MAX - (TIMER1_NO_TICKS_IN_1S) / 10)
 #define TIMER1_1S				(uint16_t)(UINT16_MAX - TIMER1_NO_TICKS_IN_1S)
 
-#define TIMER1_PERIOD			TIMER1_100MS
+#define TIMER1_PERIOD			TIMER1_1MS
 
 void Timer1_SetTime(void);
 void Timer1_Init(void);

@@ -22,9 +22,11 @@ int main (void)
 	Timer1_Init();
 	
 	OS_Activate_Task(OS_TASK_LED_TOGGLE);
+	OS_Activate_Task(OS_TASK_STEP_RIGHT);
 	Timer1_SetTime();
 
 	DDRB = 0b11111111;
+	DDRC = 0b00001111;
 		
 	sei();
 	

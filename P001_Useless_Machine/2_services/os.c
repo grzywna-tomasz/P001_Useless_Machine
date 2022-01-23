@@ -37,7 +37,8 @@ typedef enum
 #endif
 #define	OS_TASK_DEF(id, cfg_offset, cfg_period, cfg_task_ptr) {.offset = cfg_offset, .period = cfg_period, .task_pointer = cfg_task_ptr},
 
-static const OS_Task_Cfg_T OS_Task_Cfg[OS_Task_No] = 
+//todo task_cfg should be const
+static OS_Task_Cfg_T OS_Task_Cfg[OS_Task_No] = 
 {
 	OS_TASK_CFG_TABLE()
 };

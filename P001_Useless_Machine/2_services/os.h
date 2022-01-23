@@ -9,9 +9,11 @@
 #define OS_H_
 
 #include "led.h"
+#include "uln2003.h"
 
 #define OS_TASK_CFG_TABLE()	\
-	OS_TASK_DEF(OS_TASK_LED_TOGGLE, 0, 5, &LedToggle)	\
+	OS_TASK_DEF(OS_TASK_LED_TOGGLE, 0, 500, &LedToggle)	\
+	OS_TASK_DEF(OS_TASK_STEP_RIGHT, 0, 1, &Uln2003_StepRight)	\
 /* OS_TASK_CFG_TABLE */
 
 #ifdef OS_TASK_DEF

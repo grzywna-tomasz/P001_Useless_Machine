@@ -169,6 +169,12 @@
     <Compile Include="3_hal\led.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="3_hal\uln2003.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3_hal\uln2003.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="4_mcu_drivers\IO.h">
       <SubType>compile</SubType>
     </Compile>

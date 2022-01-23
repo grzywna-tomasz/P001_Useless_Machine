@@ -14,11 +14,6 @@
 #include "timer.h"
 #include "os.h"
 
-void LedToggle(void)
-{
-	IO_SetPin(PORTB, TEST_LED_INDEX, ~IO_GetPin(PORTB, TEST_LED_INDEX));
-}
-
 int main (void)
 {
 	Mcu_ClockInit();

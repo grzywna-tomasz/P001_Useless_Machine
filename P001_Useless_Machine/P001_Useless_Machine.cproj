@@ -108,77 +108,94 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
-        <avrgcc.common.Device>-mmcu=atmega328p -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p"</avrgcc.common.Device>
-        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
-        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
-        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
-        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
-        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
-        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
-        <avrgcc.compiler.symbols.DefSymbols>
-          <ListValues>
-            <Value>DEBUG</Value>
-          </ListValues>
-        </avrgcc.compiler.symbols.DefSymbols>
-        <avrgcc.compiler.directories.IncludePaths>
-          <ListValues>
-            <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
-          </ListValues>
-        </avrgcc.compiler.directories.IncludePaths>
-        <avrgcc.compiler.optimization.level>Optimize debugging experience (-Og)</avrgcc.compiler.optimization.level>
-        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
-        <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
-        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-        <avrgcc.linker.libraries.Libraries>
-          <ListValues>
-            <Value>libm</Value>
-          </ListValues>
-        </avrgcc.linker.libraries.Libraries>
-        <avrgcc.assembler.general.IncludePaths>
-          <ListValues>
-            <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
-          </ListValues>
-        </avrgcc.assembler.general.IncludePaths>
-        <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
-      </AvrGcc>
+  <avrgcc.common.Device>-mmcu=atmega328p -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p"</avrgcc.common.Device>
+  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>DEBUG</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
+      <Value>../1_app</Value>
+      <Value>../2_services</Value>
+      <Value>../3_hal</Value>
+      <Value>../4_mcu_drivers</Value>
+      <Value>..</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.optimization.level>Optimize debugging experience (-Og)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.Libraries>
+  <avrgcc.assembler.general.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
+    </ListValues>
+  </avrgcc.assembler.general.IncludePaths>
+  <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+</AvrGcc>
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="2_services\main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="2_services\os.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="2_services\os.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="2_services\standard_types.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3_hal\led.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="3_hal\led.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="4_mcu_drivers\IO.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="4_mcu_drivers\mcu.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="4_mcu_drivers\mcu.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="4_mcu_drivers\timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="4_mcu_drivers\timer.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="debug.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="debug.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="IO.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="mcu.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="mcu.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="os.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="os.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="standard_types.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="timer.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="timer.h">
-      <SubType>compile</SubType>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="1_app" />
+    <Folder Include="4_mcu_drivers" />
+    <Folder Include="3_hal" />
+    <Folder Include="2_services" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

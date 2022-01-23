@@ -36,8 +36,6 @@ typedef enum
 #undef OS_TASK_DEF
 #endif
 #define	OS_TASK_DEF(id, cfg_offset, cfg_period, cfg_task_ptr) {.offset = cfg_offset, .period = cfg_period, .task_pointer = cfg_task_ptr},
-	
-void LedToggle(void);
 
 static const OS_Task_Cfg_T OS_Task_Cfg[OS_Task_No] = 
 {

@@ -8,6 +8,8 @@
 #ifndef OS_H_
 #define OS_H_
 
+#include "led.h"
+
 #define OS_TASK_CFG_TABLE()	\
 	OS_TASK_DEF(OS_TASK_LED_TOGGLE, 0, 5, &LedToggle)	\
 /* OS_TASK_CFG_TABLE */

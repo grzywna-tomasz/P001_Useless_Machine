@@ -17,6 +17,7 @@ typedef struct
 {
 	uint8_t state;
 	uint16_t next_call; 
+	uint8_t next_call_overflow;
 } OS_Task_Desc_T;
 
 typedef struct  
@@ -82,22 +83,44 @@ void OS_Init(void)
 	}
 }
 
+void OS_SetNextCall(uint8_t task_id)
+{
+	OS_Task_Desc[task_id].next_call = OS_Task_Desc[task_id].next_call + OS_Task_Cfg[task_id].period;
+	
+	if (OS_Task_Desc[task_id].next_call <= OS_Task_Cfg[task_id].period)
+	{
+		OS_Task_Desc[task_id].next_call_overflow = TRUE;
+	}
+}
+
+void OS_ExecuteTask()
+{
+	for (uint8_t task_id = 0; (uint8_t)OS_Task_No > task_id; task_id++)
+	{
+		if (OS_TASK_ACTIVE == OS_Task_Desc[task_id].state)
+		{
+			/* Determine if task need to be executed. Greater or equal in case something took longer time and OS "skipped" task. It will be executed one after another */
+			if (OS_Tick_Counter >= OS_Task_Desc[task_id].next_call)
+			{
+				if (FALSE == OS_Task_Desc[task_id].next_call_overflow)
+				{
+					OS_Task_Cfg[task_id].task_pointer();
+					OS_SetNextCall(task_id);
+				}
+			}
+			else
+			{
+				OS_Task_Desc[task_id].next_call_overflow = FALSE;
+			}
+		}
+	}
+}
+
 void OS_Run(void)
 {
 	if (Initialized == OS_State)
 	{
-		for (uint8_t task_id = 0; (uint8_t)OS_Task_No > task_id; task_id++)
-		{
-			if (OS_TASK_ACTIVE == OS_Task_Desc[task_id].state)
-			{
-				/* Determine if task need to be executed. Greater or equal in case something took longer time and OS "skipped" task. It will be executed one after another */
-				if (OS_Tick_Counter >= OS_Task_Desc[task_id].next_call)		
-				{
-					OS_Task_Cfg[task_id].task_pointer();
-					OS_Task_Desc[task_id].next_call = OS_Task_Desc[task_id].next_call + OS_Task_Cfg[task_id].period;
-				}
-			}
-		}
+		OS_ExecuteTask();
 	}
 	else
 	{

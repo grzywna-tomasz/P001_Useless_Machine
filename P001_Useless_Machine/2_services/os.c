@@ -56,6 +56,7 @@ static OS_Task_Desc_T OS_Task_Desc[OS_Task_No] =
 
 static OS_State_T OS_State = Uninitialized;
 static uint16_t OS_Tick_Counter = 0;
+static uint8_t OS_OverflowOccured = FALSE;
 
 void OS_Reset(void)
 {
@@ -87,7 +88,7 @@ void OS_SetNextCall(uint8_t task_id)
 {
 	OS_Task_Desc[task_id].next_call = OS_Task_Desc[task_id].next_call + OS_Task_Cfg[task_id].period;
 	
-	if (OS_Task_Desc[task_id].next_call <= OS_Task_Cfg[task_id].period)
+	if (OS_Task_Desc[task_id].next_call < OS_Task_Cfg[task_id].period)
 	{
 		OS_Task_Desc[task_id].next_call_overflow = TRUE;
 	}
@@ -95,6 +96,16 @@ void OS_SetNextCall(uint8_t task_id)
 
 void OS_ExecuteTask()
 {
+	cli();
+	if (TRUE == OS_OverflowOccured)
+	{
+		for (uint8_t task_id = 0; (uint8_t)OS_Task_No > task_id; task_id++)
+		{
+			OS_Task_Desc[task_id].next_call_overflow = FALSE;
+		}
+		OS_OverflowOccured = FALSE;
+	}
+	sei();
 	for (uint8_t task_id = 0; (uint8_t)OS_Task_No > task_id; task_id++)
 	{
 		if (OS_TASK_ACTIVE == OS_Task_Desc[task_id].state)
@@ -107,10 +118,6 @@ void OS_ExecuteTask()
 					OS_Task_Cfg[task_id].task_pointer();
 					OS_SetNextCall(task_id);
 				}
-			}
-			else
-			{
-				OS_Task_Desc[task_id].next_call_overflow = FALSE;
 			}
 		}
 	}
@@ -133,6 +140,10 @@ void OS_Tick_Handler(void)
 	if (Initialized == OS_State)
 	{
 		OS_Tick_Counter++;
+		if (OS_Tick_Counter == 0)
+		{
+			OS_OverflowOccured = TRUE;
+		}
 	}
 	else
 	{

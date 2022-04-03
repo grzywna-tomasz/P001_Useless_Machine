@@ -16,4 +16,6 @@
 #define TRUE			(uint8_t)(1)
 #define FALSE			(uint8_t)(0)
 
+#define NULL_PTR		((void *)0)
+
 #endif /* STANDARD_TYPES_H_ */

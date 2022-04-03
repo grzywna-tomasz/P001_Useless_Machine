@@ -9,8 +9,14 @@
 #ifndef ULN2003_H_
 #define ULN2003_H_
 
-void Uln2003_StepRight(void);
+typedef enum
+{
+	ULN2003_IDLE,
+	ULN2003_STEP,
+} Uln2003_State_T;
 
-
+void Uln2003_Task(void);
+Uln2003_State_T Uln2003_GetState(uint8_t motor_id);
+void uln2003_SetDesiredPosition(uint8_t motor_id, int16_t position, uint8_t speed);
 
 #endif /* ULN2003_H_ */

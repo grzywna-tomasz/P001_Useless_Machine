@@ -2,6 +2,10 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+1_app\app.c
+
+1_app\app_cfg.c
+
 2_services\main.c
 
 2_services\os.c

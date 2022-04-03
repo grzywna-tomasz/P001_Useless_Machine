@@ -10,7 +10,6 @@
 #include "standard_types.h"
 #include "IO.h"
 #include "mcu.h"
-#include "debug.h"
 #include "timer.h"
 #include "os.h"
 
@@ -23,6 +22,7 @@ int main (void)
 	
 	OS_Activate_Task(OS_TASK_LED_TOGGLE);
 	OS_Activate_Task(OS_TASK_STEP_RIGHT);
+	OS_Activate_Task(OS_TASK_APP);
 	Timer1_SetTime();
 
 	DDRB = 0b11111111;

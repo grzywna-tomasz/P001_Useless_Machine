@@ -1,23 +1,22 @@
-/*
- * os.h
- *
- * Created: 19.09.2021 18:51:10
- *  Author: Grzywna
- */ 
-
 #ifndef OS_H_
 #define OS_H_
 
-#include "led.h"
-#include "uln2003.h"
-#include "app.h"
+/** \brief Configuration header file for OS
+ */
 
-#define OS_TASK_CFG_TABLE()	\
-	OS_TASK_DEF(OS_TASK_LED_TOGGLE, 0, 500, &LedToggle)	\
-	OS_TASK_DEF(OS_TASK_STEP_RIGHT, 0, 3, &Uln2003_Task)	\
-	OS_TASK_DEF(OS_TASK_APP, 0, 10, &App_Task)	\
-/* OS_TASK_CFG_TABLE */
+/**--------------------------------------------------------------------*\
+ * Included headers
+\**--------------------------------------------------------------------*/
+#include "os_internal.h"
 
+/**--------------------------------------------------------------------*\
+ * Macros defininition
+\**--------------------------------------------------------------------*/
+
+/**--------------------------------------------------------------------*\
+ * Types defininition
+\**--------------------------------------------------------------------*/
+/* Reconfiguration of task config macro */
 #ifdef OS_TASK_DEF
 #undef OS_TASK_DEF
 #endif
@@ -29,11 +28,18 @@ typedef enum
 	OS_Task_No
 } OS_Task_Id_T;
 
+/**--------------------------------------------------------------------*\
+ * Exported functions prototypes
+\**--------------------------------------------------------------------*/
 void OS_Reset(void);
 void OS_Init(void);
 void OS_Run(void);
 void OS_Tick_Handler(void);
 void OS_Deactivate_Task(OS_Task_Id_T task_id);
 void OS_Activate_Task(OS_Task_Id_T task_id);
+
+/**--------------------------------------------------------------------*\
+ * Objects definition
+\**--------------------------------------------------------------------*/
 
 #endif /* OS_H_ */

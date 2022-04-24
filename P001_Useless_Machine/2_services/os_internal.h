@@ -1,24 +1,21 @@
-#ifndef STANDARD_TYPES_H_
-#define STANDARD_TYPES_H_
+#ifndef OS_INTERNAL_H_
+#define OS_INTERNAL_H_
 
-/** \brief Configuration header file for standard types include
+/** \brief Configuration header file containing include for OS
  */
 
 /**--------------------------------------------------------------------*\
  * Included headers
 \**--------------------------------------------------------------------*/
-/* Include of disable/enable interrupt */
-#include <avr/interrupt.h>
-/* Include of standard typedefs */
-#include <avr/cpufunc.h>
+#include "os_cfg.h"
+
+#include "led.h"
+#include "uln2003.h"
+#include "app.h"
 
 /**--------------------------------------------------------------------*\
  * Macros defininition
 \**--------------------------------------------------------------------*/
-#define TRUE			(uint8_t)(1)
-#define FALSE			(uint8_t)(0)
-
-#define NULL_PTR		((void *)0)
 
 /**--------------------------------------------------------------------*\
  * Types defininition
@@ -32,4 +29,4 @@
  * Objects definition
 \**--------------------------------------------------------------------*/
 
-#endif /* STANDARD_TYPES_H_ */
+#endif /* OS_INTERNAL_H_ */

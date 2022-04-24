@@ -1,15 +1,23 @@
 
-/*
- * app.c
- *
- * Created: 24.01.2022 20:22:07
- *  Author: Grzywna
- */ 
+/** \brief Source file for application
+ */
+
+/**--------------------------------------------------------------------*\
+ * Included headers
+\**--------------------------------------------------------------------*/
 #include "standard_types.h"
 #include "uln2003.h"
 #include "app.h"
 #include "app_cfg.h"
+#include "os.h"
 
+/**--------------------------------------------------------------------*\
+ * Macros defininition
+\**--------------------------------------------------------------------*/
+
+/**--------------------------------------------------------------------*\
+ * Types defininition
+\**--------------------------------------------------------------------*/
 typedef enum
 {
 	APP_IDLE,
@@ -25,6 +33,14 @@ typedef struct
 	uint8_t delay_counter;
 } App_Control_T;
 
+/**--------------------------------------------------------------------*\
+ * Local functions prototypes
+\**--------------------------------------------------------------------*/
+static void App_AssignNextStep(uint8_t step);
+
+/**--------------------------------------------------------------------*\
+ * Objects definition
+\**--------------------------------------------------------------------*/
 static App_Control_T App_Control = 
 {
 	.status = APP_IDLE,
@@ -35,8 +51,13 @@ static App_Control_T App_Control =
 
 static uint16_t App_counter = 0;
 
-static void App_AssignNextStep(uint8_t step);
-
+/**--------------------------------------------------------------------*\
+ * Functions defininition
+\**--------------------------------------------------------------------*/
+/** \brief Set next step to be executed
+ *  \param[in] step - index of the step to be set
+ *  \returns None
+ */
 static void App_AssignNextStep(uint8_t step)
 {
 	if (APP_END_STEP == step)
@@ -51,6 +72,17 @@ static void App_AssignNextStep(uint8_t step)
 	}
 }
 
+/** \brief Starts the application component
+ *  \returns None
+ */
+void App_Start(void)
+{
+   OS_Activate_Task(OS_TASK_APP);
+}
+
+/** \brief Application task called from OS
+ *  \returns None
+ */
 void App_Task(void)
 {
 	if(App_counter == 500)
@@ -94,6 +126,9 @@ void App_Task(void)
 	}
 }
 
+/** \brief Notification callback of finished step execution
+ *  \returns None
+ */
 void App_TransitionFinished(void)
 {
 	if(APP_TRANSITION_STARTED == App_Control.status)

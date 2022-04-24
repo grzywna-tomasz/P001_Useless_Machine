@@ -1,24 +1,26 @@
-#ifndef STANDARD_TYPES_H_
-#define STANDARD_TYPES_H_
+#ifndef PORT_CFG_H_
+#define PORT_CFG_H_
 
-/** \brief Configuration header file for standard types include
+/** \brief Configuration header file for port handling
  */
 
 /**--------------------------------------------------------------------*\
  * Included headers
 \**--------------------------------------------------------------------*/
-/* Include of disable/enable interrupt */
-#include <avr/interrupt.h>
-/* Include of standard typedefs */
-#include <avr/cpufunc.h>
 
 /**--------------------------------------------------------------------*\
  * Macros defininition
 \**--------------------------------------------------------------------*/
-#define TRUE			(uint8_t)(1)
-#define FALSE			(uint8_t)(0)
+#define PORTB_INIT_VALUE   0x00U
+#define PORTC_INIT_VALUE   0x00U
+#define PORTD_INIT_VALUE   0x00U
+#define PORTE_INIT_VALUE   0x00U
 
-#define NULL_PTR		((void *)0)
+/* 0 - input, 1 - OUTPUT */
+#define DDRB_INIT_VALUE    0xFFU
+#define DDRC_INIT_VALUE    0xFFU
+#define DDRD_INIT_VALUE    0xFFU
+#define DDRE_INIT_VALUE    0xFFU
 
 /**--------------------------------------------------------------------*\
  * Types defininition
@@ -32,4 +34,4 @@
  * Objects definition
 \**--------------------------------------------------------------------*/
 
-#endif /* STANDARD_TYPES_H_ */
+#endif /* PORT_CFG_H_ */

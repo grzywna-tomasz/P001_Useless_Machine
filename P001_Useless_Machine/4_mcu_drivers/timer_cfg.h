@@ -1,24 +1,21 @@
-#ifndef STANDARD_TYPES_H_
-#define STANDARD_TYPES_H_
+#ifndef TIMER_CFG_H_
+#define TIMER_CFG_H_
 
-/** \brief Configuration header file for standard types include
+/** \brief Configuration header file for timer
  */
 
 /**--------------------------------------------------------------------*\
  * Included headers
 \**--------------------------------------------------------------------*/
-/* Include of disable/enable interrupt */
-#include <avr/interrupt.h>
-/* Include of standard typedefs */
-#include <avr/cpufunc.h>
 
 /**--------------------------------------------------------------------*\
  * Macros defininition
 \**--------------------------------------------------------------------*/
-#define TRUE			(uint8_t)(1)
-#define FALSE			(uint8_t)(0)
+/* Timer1 prescaler */
+#define TIMER1_1024_PRESCALER    0x05U
 
-#define NULL_PTR		((void *)0)
+/* Timer1 refresh period */
+#define TIMER1_PERIOD            TIMER1_1MS
 
 /**--------------------------------------------------------------------*\
  * Types defininition
@@ -32,4 +29,4 @@
  * Objects definition
 \**--------------------------------------------------------------------*/
 
-#endif /* STANDARD_TYPES_H_ */
+#endif /* TIMER_CFG_H_ */

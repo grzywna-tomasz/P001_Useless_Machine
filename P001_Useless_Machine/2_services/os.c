@@ -1,16 +1,21 @@
-/*
- * os.c
- *
- * Created: 19.09.2021 18:50:52
- *  Author: Grzywna
+/** \brief Source file for OS implementation
  */
 
+/**--------------------------------------------------------------------*\
+ * Included headers
+\**--------------------------------------------------------------------*/
 #include "standard_types.h"
 #include "os.h"
 
+/**--------------------------------------------------------------------*\
+ * Macros defininition
+\**--------------------------------------------------------------------*/
 #define OS_TASK_INACTIVE	FALSE
 #define OS_TASK_ACTIVE		TRUE
 
+/**--------------------------------------------------------------------*\
+ * Types defininition
+\**--------------------------------------------------------------------*/
 typedef void(*OS_Task_Ptr_T)();
 
 typedef struct 
@@ -33,17 +38,27 @@ typedef enum
 	Initialized,	
 } OS_State_T;
 
+/**--------------------------------------------------------------------*\
+ * Local functions prototypes
+\**--------------------------------------------------------------------*/
+static void OS_ExecuteTask(void);
+static void OS_SetNextCall(uint8_t task_id);
+
+/**--------------------------------------------------------------------*\
+ * Objects definition
+\**--------------------------------------------------------------------*/
+/* Reconfiguration of task config macro */
 #ifdef OS_TASK_DEF
 #undef OS_TASK_DEF
 #endif
 #define	OS_TASK_DEF(id, cfg_offset, cfg_period, cfg_task_ptr) {.offset = cfg_offset, .period = cfg_period, .task_pointer = cfg_task_ptr},
 
-//todo task_cfg should be const
-static OS_Task_Cfg_T OS_Task_Cfg[OS_Task_No] = 
+const static OS_Task_Cfg_T OS_Task_Cfg[OS_Task_No] = 
 {
 	OS_TASK_CFG_TABLE()
 };
 
+/* Reconfiguration of task config macro */
 #ifdef OS_TASK_DEF
 #undef OS_TASK_DEF
 #endif
@@ -58,6 +73,12 @@ static OS_State_T OS_State = Uninitialized;
 static uint16_t OS_Tick_Counter = 0;
 static uint8_t OS_OverflowOccured = FALSE;
 
+/**--------------------------------------------------------------------*\
+ * Functions defininition
+\**--------------------------------------------------------------------*/
+/** \brief Reset the microcontroller
+ *  \returns None
+ */
 void OS_Reset(void)
 {
 	// TODO fill it with reset using watchdog.
@@ -67,6 +88,9 @@ void OS_Reset(void)
 	}
 }
 
+/** \brief Function initialize OS
+ *  \returns None
+ */
 void OS_Init(void)
 {
 	if (Uninitialized == OS_State)
@@ -84,7 +108,11 @@ void OS_Init(void)
 	}
 }
 
-void OS_SetNextCall(uint8_t task_id)
+/** \brief Function Setting next call counter
+ *  \param[in] task_id - identifier of task to be modified
+ *  \returns None
+ */
+static void OS_SetNextCall(uint8_t task_id)
 {
 	OS_Task_Desc[task_id].next_call = OS_Task_Desc[task_id].next_call + OS_Task_Cfg[task_id].period;
 	
@@ -94,9 +122,13 @@ void OS_SetNextCall(uint8_t task_id)
 	}
 }
 
-void OS_ExecuteTask()
+/** \brief Execute OS tasks
+ *  \returns None
+ */
+static void OS_ExecuteTask(void)
 {
-	cli();
+   /* Handle overflow of the OS counter */
+	OS_DisableInterrupts();
 	if (TRUE == OS_OverflowOccured)
 	{
 		for (uint8_t task_id = 0; (uint8_t)OS_Task_No > task_id; task_id++)
@@ -105,12 +137,15 @@ void OS_ExecuteTask()
 		}
 		OS_OverflowOccured = FALSE;
 	}
-	sei();
+   OS_EnableInterrupts();
+
+   /* Handle task execution */
 	for (uint8_t task_id = 0; (uint8_t)OS_Task_No > task_id; task_id++)
 	{
 		if (OS_TASK_ACTIVE == OS_Task_Desc[task_id].state)
 		{
-			/* Determine if task need to be executed. Greater or equal in case something took longer time and OS "skipped" task. It will be executed one after another */
+			/* Determine if task need to be executed. Greater or equal in case something took longer time 
+         and OS "skipped" task. It will be executed one after another */
 			if (OS_Tick_Counter >= OS_Task_Desc[task_id].next_call)
 			{
 				if (FALSE == OS_Task_Desc[task_id].next_call_overflow)
@@ -123,6 +158,9 @@ void OS_ExecuteTask()
 	}
 }
 
+/** \brief Main function handling OS functionality
+ *  \returns None
+ */
 void OS_Run(void)
 {
 	if (Initialized == OS_State)
@@ -135,6 +173,9 @@ void OS_Run(void)
 	}
 }
 
+/** \brief Handler for OS timer interrupt
+ *  \returns None
+ */
 void OS_Tick_Handler(void)
 {
 	if (Initialized == OS_State)
@@ -151,11 +192,19 @@ void OS_Tick_Handler(void)
 	}
 }
 
+/** \brief Function for deactivating task
+ *  \param[in] task_id - identifier of task to be stopped
+ *  \returns None
+ */
 void OS_Deactivate_Task(OS_Task_Id_T task_id)
 {
 	OS_Task_Desc[task_id].state = OS_TASK_INACTIVE;
 }
 
+/** \brief Function for activating task
+ *  \param[in] task_id - identifier of task to be activated
+ *  \returns None
+ */
 void OS_Activate_Task(OS_Task_Id_T task_id)
 {
 	if (Initialized == OS_State)

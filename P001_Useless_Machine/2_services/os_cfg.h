@@ -1,24 +1,26 @@
-#ifndef STANDARD_TYPES_H_
-#define STANDARD_TYPES_H_
+#ifndef OS_CFG_H_
+#define OS_CFG_H_
 
-/** \brief Configuration header file for standard types include
+/** \brief Configuration header file for OS
  */
 
 /**--------------------------------------------------------------------*\
  * Included headers
 \**--------------------------------------------------------------------*/
-/* Include of disable/enable interrupt */
-#include <avr/interrupt.h>
-/* Include of standard typedefs */
-#include <avr/cpufunc.h>
+#include "standard_types.h"
 
 /**--------------------------------------------------------------------*\
  * Macros defininition
 \**--------------------------------------------------------------------*/
-#define TRUE			(uint8_t)(1)
-#define FALSE			(uint8_t)(0)
+/* Task configuration table */
+#define OS_TASK_CFG_TABLE()	\
+	OS_TASK_DEF(OS_TASK_LED_TOGGLE, 0, 500, &Led_Toggle)	\
+	OS_TASK_DEF(OS_TASK_ULN2003, 0, 3, &Uln2003_Task)	\
+	OS_TASK_DEF(OS_TASK_APP, 0, 10, &App_Task)	\
+/* OS_TASK_CFG_TABLE */
 
-#define NULL_PTR		((void *)0)
+#define OS_EnableInterrupts()    sei();
+#define OS_DisableInterrupts()   cli();
 
 /**--------------------------------------------------------------------*\
  * Types defininition
@@ -32,4 +34,4 @@
  * Objects definition
 \**--------------------------------------------------------------------*/
 
-#endif /* STANDARD_TYPES_H_ */
+#endif /* OS_CFG_H_ */
